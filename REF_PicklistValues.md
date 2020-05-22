@@ -82,17 +82,18 @@ If you have no preference for carrier, RINCHEM should be be selected and a carri
 
 ### Status Codes
 
-| Status Code | Description                    | Affect Damaged |
-| ----------- | ------------------------------ | -------------- |
-| DMG         | DAMAGED                        | Yes            |
-| OH          | ON HOLD                        | No             |
-| RCAL        | RECALLED PRODUCT               | Yes            |
-| REJ         | REJECTED PRODUCT               | Yes            |
-| RET         | RETURNABLE CONTAINER           | No             |
-| RSL         | RESELL                         | Yes            |
-| SPCL        | SPECIAL AUTHORIZATION REQUIRED | Yes            |
-| VH          | VENDOR HOLD                    | No             |
-| WST         | WASTE                          | Yes            |
+| Status Code | Description                          | Affect Damaged |
+| ----------- | -------------------------------      | -------------- |
+| DMG         | DAMAGED                              | Yes            |
+| OH          | ON HOLD                              | No             |
+| RCAL        | RECALLED PRODUCT                     | Yes            |
+| REJ         | REJECTED PRODUCT                     | Yes            |
+| RET         | RETURNABLE CONTAINER                 | No             |
+| RSL         | RESELL                               | Yes            |
+| SPCL        | SPECIAL AUTHORIZATION REQUIRED       | Yes            |
+| VH          | VENDOR HOLD                          | No             |
+| WST         | WASTE                                | Yes            |
+| MQCS        | MATERIAL QUALITY CONTROL SYSTEM HOLD | No             |
 
 
 ### Record Status Codes
