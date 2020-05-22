@@ -4,8 +4,10 @@
 
 > [Minimum Inbound Payload](#minimum-inbound-payload)<br/>
 > [Minimum Outbound Payload](#minimum-outbound-payload)<br/>
+> [Minimum Disposition Payload](#minimum-disposition-payload)<br/>
 > [Full Inbound Payload](#full-inbound-payload)<br/>
 > [Full Outbound Payload](#full-outbound-payload)<br/>
+> [Full Disposition Payload](#full-disposition-payload)<br/>
 > [Full Generic Payload](#full-generic-payload)<br/>
 
 
@@ -71,6 +73,25 @@
             "LotNumber" : "12345",
             "Quantity" : 5,
             "UnitOfMeasure" : "BOTTLE" 
+        }
+    ]
+}
+```
+
+## Minimum Disposition Payload
+
+```json
+{
+    "Customer_AvailableHoldCodes": ["OH"],
+    "Customer_ModifyLotsWithHoldCodes": ["OK"],
+    "Customer_ReturnRecord": true,
+
+    "LineItems" : 
+    [
+        {
+            "Product_OwnerPartNumber" : "00186390",
+            "LotNumber" : "0000250390",
+	    "HoldCode" : "OH"
         }
     ]
 }
@@ -206,6 +227,28 @@
     ]
 }
 ```
+
+## Full Disposition Payload
+
+```json
+{
+    "OwnerCode" : "OWN",
+    "SupplierCode" : "",
+    "Customer_AvailableHoldCodes": ["OH"],
+    "Customer_ModifyLotsWithHoldCodes": ["OK"],
+    "Customer_ReturnRecord": true,
+
+    "LineItems" : 
+    [
+        {
+            "Product_OwnerPartNumber" : "00186390",
+            "LotNumber" : "0000250390",
+      	    "HoldCode" : "OH"
+        }
+    ]
+}
+```
+
 
 ## Full Generic Payload
 
