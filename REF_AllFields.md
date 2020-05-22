@@ -11,6 +11,7 @@
 > > [Freight Fields](#freight-fields)<br/>
 > > [Ship To Fields](#ship-to-fields)<br/>
 > > [Ship From Fields](#ship-from-fields)<br/>
+> > [Customer Fields](#customer-fields)<br/>
 > > [GET Only Fields](#get-only-fields)<br/>
 >
 > [Line Item Fields](#line-item-fields)
@@ -51,10 +52,10 @@ The ***Inbound*** and ***Outbound*** columns show the availability of the field 
 
 ### Record Fields
 
-| Inbound | Outbound | Field Name          | Format    | Example   |
-| ------- | -------- | ------------------- | --------- | --------- |
-| + w     | + w      | Record_Name         | Text(25)  | IMP000015 |
-| +       | +        | Record_ExternalName | Text(120) | 1234EXA   |
+| Inbound | Outbound | Disposition | Field Name          | Format    | Example   |
+| ------- | -------- | ----------- | ------------------- | --------- | --------- |
+| + w     | + w      | +           | Record_Name         | Text(25)  | IMP000015 |
+| +       | +        | +           | Record_ExternalName | Text(120) | 1234EXA   |
 
 The **Record_Name** is a Salesforce generated value that will be returned upon successful order creation. It may be stored and used to reference the order for any *patch* or *get* requests, however, **should not be included in any *POST* requests**.
 
@@ -62,18 +63,18 @@ The **Record_ExternalName** on the other hand is a user created unique id/name. 
 
 ### General Fields
 
-| Inbound | Outbound | Field Name                 | Format    | Example        |
-| ------- | -------- | -------------------------- | --------- | -------------- |
-| * w     | \* w     | OwnerCode                  | Picklist  | RIN            |
-| \* w    | \* w     | SupplierCode               | Picklist  | RIN            |
-| x       | \* w     | DesiredDeliveryDate        | Date      | 2018-10-22     |
-| \* w    | x        | EstimatedShipDate          | Date      | 2018-10-22     |
-| + w     | + w      | PurchaseOrderNumber        | Text(50)  | PO1234         |
-| + w     | + w      | AdditionalOrderNumber      | Text(50)  | ADDITIONAL1234 |
-| +       | +        | AdditionalShipmentComments | Text(255) |                |
-| +       | +        | CustomerField1             | Text(255) |                |
-| +       | +        | CustomerField2             | Text(255) |                |
-| +       | +        | CustomerField3             | Text(255) |                |
+| Inbound | Outbound | Disposition | Field Name                 | Format    | Example        |
+| ------- | -------- | ----------- | -------------------------- | --------- | -------------- |
+| * w     | \* w     | + w         | OwnerCode                  | Picklist  | RIN            |
+| \* w    | \* w     | + w         | SupplierCode               | Picklist  | RIN            |
+| x       | \* w     | x           | DesiredDeliveryDate        | Date      | 2018-10-22     |
+| \* w    | x        | x           | EstimatedShipDate          | Date      | 2018-10-22     |
+| + w     | + w      | +           | PurchaseOrderNumber        | Text(50)  | PO1234         |
+| + w     | + w      | x           | AdditionalOrderNumber      | Text(50)  | ADDITIONAL1234 |
+| +       | +        | x           | AdditionalShipmentComments | Text(255) |                |
+| +       | +        | x           | CustomerField1             | Text(255) |                |
+| +       | +        | x           | CustomerField2             | Text(255) |                |
+| +       | +        | x           | CustomerField3             | Text(255) |                |
 
 The **OwnerCode** specifies the owner of the material at the time the request is sent. If ownership changes after sending, a *PATCH Update* request should be sent. The **SupplierCode** specifies who distributes or manufactures the material. Both *OwnerCode* and *SupplierCode* must match specific values in Rinchem's system. Please ask your Rinchem contact for a list of relevant owner and supplier codes to use.
 
@@ -87,15 +88,15 @@ The **AdditionalOrderNumber** may be used to store any secondary order numbers t
 
 ### Contact Fields
 
-| Inbound | Outbound | Field Name                 | Format   | Example                                             |
-| ------- | -------- | -------------------------- | -------- | --------------------------------------------------- |
-| +       | +        | Requester_Email            | Text(70) | [requester@email.com](mailto:requester@email.com)   |
-| +       | +        | Requester_Phone            | Text(70) | 1-555-123-4567                                      |
-| +       | +        | SecondaryContact_FirstName | Text(70) | John                                                |
-| +       | +        | SecondaryContact_LastName  | Text(70) | Doe                                                 |
-| +       | +        | SecondaryContact_Company   | Text(70) | EXAMPLE CO                                          |
-| +       | +        | SecondaryContact_Phone     | Text(70) | 1-555-123-4567                                      |
-| +       | +        | SecondaryContact_Email     | Text(70) | [john.doe@example.com](mailto:john.doe@example.com) |
+| Inbound | Outbound | Disposition | Field Name                 | Format   | Example                                             |
+| ------- | -------- | ----------- | -------------------------- | -------- | --------------------------------------------------- |
+| +       | +        | x           | Requester_Email            | Text(70) | [requester@email.com](mailto:requester@email.com)   |
+| +       | +        | x           | Requester_Phone            | Text(70) | 1-555-123-4567                                      |
+| +       | +        | x           | SecondaryContact_FirstName | Text(70) | John                                                |
+| +       | +        | x           | SecondaryContact_LastName  | Text(70) | Doe                                                 |
+| +       | +        | x           | SecondaryContact_Company   | Text(70) | EXAMPLE CO                                          |
+| +       | +        | x           | SecondaryContact_Phone     | Text(70) | 1-555-123-4567                                      |
+| +       | +        | x           | SecondaryContact_Email     | Text(70) | [john.doe@example.com](mailto:john.doe@example.com) |
 
 The **Requester** and **SecondaryContact** fields are entirely optional. They simply provide Rinchem with contacts to reach out to if there happens to be an issue with the order. There is no guarantee that they will be notified of the order or any order updates. These fields live entirely in *Chem-Star* and will not be passed to our WMS or appear on any forms.
 The **Requester** fields should be used to describe the person sending the request payload. If these fields are left blank, the values will be populated with information pulled from your *Chem-Star* profile. 
@@ -103,27 +104,27 @@ The **SecondaryContact** fields should be used to describe anybody else of conce
 
 ### Freight Fields
 
-| Inbound | Outbound | Field Name                            | Format    | Example  |
-| ------- | -------- | ------------------------------------- | --------- | -------- |
-| * w     | * w      | Freight_CarrierService                | Picklist  | RINCHEM  |
-| +       | +        | Freight_CarrierService_TrackingNumber | Text(100) | abc12345 |
-| +       | +        | Freight_CarrierService_AccountNumber  | Text(100) | 12345abc |
+| Inbound | Outbound | Disposition | Field Name                            | Format    | Example  |
+| ------- | -------- | ----------- | ------------------------------------- | --------- | -------- |
+| * w     | * w      | x           | Freight_CarrierService                | Picklist  | RINCHEM  |
+| +       | +        | x           | Freight_CarrierService_TrackingNumber | Text(100) | abc12345 |
+| +       | +        | x           | Freight_CarrierService_AccountNumber  | Text(100) | 12345abc |
 
 The **Freight_CarrierService** specifies the company that will be transporting your material. You will need to use Rinchem specific values for this field, please ask see the ***REF_PicklistValues.md*** file for a list of relevant carrier service codes. **Freight_CarrierService_AccountNumber** specifies the account number that you have open with the specified *Freight_CarrierService*.
 **Freight_CarrierService_TrackingNumber** specifies any tracking number that has bee provided by the specified *Freight_CarrierService*.
 
-| Inbound | Outbound | Field Name                | Format   | Example            |
-| ------- | -------- | ------------------------- | -------- | ------------------ |
-| *       | * w      | Freight_BillTo_Type       | Picklist | Recipient          |
-| +       | + w      | Freight_BillTo_Name       | Text(40) | John Doe           |
-| +       | + w      | Freight_BillTo_Company    | Text(40) | EXAMPLE CO         |
-| +       | + w      | Freight_BillTo_Street1    | Text(30) | 123 Example Street |
-| +       | + w      | Freight_BillTo_Street2    | Text(30) |                    |
-| +       | + w      | Freight_BillTo_Street3    | Text(30) |                    |
-| +       | + w      | Freight_BillTo_City       | Text(20) | Albuquerque        |
-| +       | + w      | Freight_BillTo_State      | Text(20) | NM                 |
-| +       | + w      | Freight_BillTo_PostalCode | Text(10) | 87109              |
-| +       | + w      | Freight_BillTo_Country    | Text(20) | USA                |
+| Inbound | Outbound | Disposition | Field Name                | Format   | Example            |
+| ------- | -------- | ----------- | ------------------------- | -------- | ------------------ |
+| *       | * w      | x           | Freight_BillTo_Type       | Picklist | Recipient          |
+| +       | + w      | x           | Freight_BillTo_Name       | Text(40) | John Doe           |
+| +       | + w      | x           | Freight_BillTo_Company    | Text(40) | EXAMPLE CO         |
+| +       | + w      | x           | Freight_BillTo_Street1    | Text(30) | 123 Example Street |
+| +       | + w      | x           | Freight_BillTo_Street2    | Text(30) |                    |
+| +       | + w      | x           | Freight_BillTo_Street3    | Text(30) |                    |
+| +       | + w      | x           | Freight_BillTo_City       | Text(20) | Albuquerque        |
+| +       | + w      | x           | Freight_BillTo_State      | Text(20) | NM                 |
+| +       | + w      | x           | Freight_BillTo_PostalCode | Text(10) | 87109              |
+| +       | + w      | x           | Freight_BillTo_Country    | Text(20) | USA                |
 
 **Freight_BillTo_Type** is a picklist that will accept 1 of the 3 following values:
 
@@ -133,11 +134,11 @@ The **Freight_CarrierService** specifies the company that will be transporting y
 
 The remaining **Freight_BillTo** fields are only applicable if ***Third Party*** has been selected.
 
-| Inbound | Outbound | Field Name                             | Format   | Example       |
-| ------- | -------- | -------------------------------------- | -------- | ------------- |
-| *       | *        | Freight_IsInternationalShipment        | Boolean  | TRUE          |
-| +       | +        | Freight_International_ImporterOfRecord | Text(40) | EXAMPLE OWNER |
-| +       | +        | Freight_MethodOfTransport              | Picklist | Domestic      |
+| Inbound | Outbound | Disposition | Field Name                             | Format   | Example       |
+| ------- | -------- | ----------- | -------------------------------------- | -------- | ------------- |
+| *       | *        | x           | Freight_IsInternationalShipment        | Boolean  | TRUE          |
+| +       | +        | x           | Freight_International_ImporterOfRecord | Text(40) | EXAMPLE OWNER |
+| +       | +        | x           | Freight_MethodOfTransport              | Picklist | Domestic      |
 
 **Freight_IsInternationalShipment** lets us know if the shipment will be crossing any international borders. 
 
@@ -147,18 +148,18 @@ The remaining **Freight_BillTo** fields are only applicable if ***Third Party***
 
 ### Ship To Fields
 
-| Inbound | Outbound | Field Name           | Format   | Example            |
-| ------- | -------- | -------------------- | -------- | ------------------ |
-| * w     | x        | ShipTo_WarehouseCode | Picklist | 16                 |
-| x       | * w      | ShipTo_Name          | Text(40) | John Doe           |
-| x       | + w      | ShipTo_Company       | Text(40) | EXAMPLE CO         |
-| x       | * w      | ShipTo_Street1       | Text(40) | 123 Example Street |
-| x       | + w      | ShipTo_Street2       | Text(40) |                    |
-| x       | + w      | ShipTo_Street3       | Text(40) |                    |
-| x       | * w      | ShipTo_City          | Text(20) | Albuquerque        |
-| x       | * w      | ShipTo_State         | Text(20) | NM                 |
-| x       | * w      | ShipTo_PostalCode    | Text(10) | 87109              |
-| x       | * w      | ShipTo_Country       | Text(20) | USA                |
+| Inbound | Outbound | Disposition | Field Name           | Format   | Example            |
+| ------- | -------- | ----------- | -------------------- | -------- | ------------------ |
+| * w     | x        | x           | ShipTo_WarehouseCode | Picklist | 16                 |
+| x       | * w      | x           | ShipTo_Name          | Text(40) | John Doe           |
+| x       | + w      | x           | ShipTo_Company       | Text(40) | EXAMPLE CO         |
+| x       | * w      | x           | ShipTo_Street1       | Text(40) | 123 Example Street |
+| x       | + w      | x           | ShipTo_Street2       | Text(40) |                    |
+| x       | + w      | x           | ShipTo_Street3       | Text(40) |                    |
+| x       | * w      | x           | ShipTo_City          | Text(20) | Albuquerque        |
+| x       | * w      | x           | ShipTo_State         | Text(20) | NM                 |
+| x       | * w      | x           | ShipTo_PostalCode    | Text(10) | 87109              |
+| x       | * w      | x           | ShipTo_Country       | Text(20) | USA                |
 
 The **ShipTo** fields let us know the final destination for your requested material. 
 
@@ -168,18 +169,18 @@ The other **ShipTo** fields should only be used in the case of an **Outbound** r
 
 ### Ship From Fields
 
-| Inbound | Outbound | Field Name             | Format   | Example            |
-| ------- | -------- | ---------------------- | -------- | ------------------ |
-| x       | * w      | ShipFrom_WarehouseCode | Picklist | 11                 |
-| *       | x        | ShipFrom_Name          | Text(40) | John Doe           |
-| +       | x        | ShipFrom_Company       | Text(40) | EXAMPLE CO         |
-| +       | x        | ShipFrom_Street1       | Text(40) | 123 Example Street |
-| +       | x        | ShipFrom_Street2       | Text(40) |                    |
-| +       | x        | ShipFrom_Street3       | Text(40) |                    |
-| +       | x        | ShipFrom_City          | Text(20) | Albuquerque        |
-| +       | x        | ShipFrom_State         | Text(20) | NM                 |
-| * w     | x        | ShipFrom_PostalCode    | Text(10) | 87109              |
-| +       | x        | ShipFrom_Country       | Text(20) | USA                |
+| Inbound | Outbound | Disposition | Field Name             | Format   | Example            |
+| ------- | -------- | ----------- | ---------------------- | -------- | ------------------ |
+| x       | * w      | x           | ShipFrom_WarehouseCode | Picklist | 11                 |
+| *       | x        | x           | ShipFrom_Name          | Text(40) | John Doe           |
+| +       | x        | x           | ShipFrom_Company       | Text(40) | EXAMPLE CO         |
+| +       | x        | x           | ShipFrom_Street1       | Text(40) | 123 Example Street |
+| +       | x        | x           | ShipFrom_Street2       | Text(40) |                    |
+| +       | x        | x           | ShipFrom_Street3       | Text(40) |                    |
+| +       | x        | x           | ShipFrom_City          | Text(20) | Albuquerque        |
+| +       | x        | x           | ShipFrom_State         | Text(20) | NM                 |
+| * w     | x        | x           | ShipFrom_PostalCode    | Text(10) | 87109              |
+| +       | x        | x           | ShipFrom_Country       | Text(20) | USA                |
 
 The **ShipFrom** fields let us know the material's origin of shipment. 
 
@@ -187,16 +188,31 @@ The **ShipTo_WarehouseCode** should only be used in the case of an **Outbound** 
 
 The other **ShipFrom** fields should only be used in the case of a F2W request.
 
+### Customer Fields
+| Inbound | Outbound | Disposition | Field Name                       | Format        | Example         |
+| ------- | -------- | ----------- | -------------------------------- | ------------- | --------------- |
+| x       | x        | +           | Customer_AvailableHoldCodes      | List(String)  | ["OH"]          |
+| x       | x        | +           | Customer_ModifyLotsWithHoldCodes | List(String)  | ["OK"]          |
+| x       | x        | +           | Customer_ReturnRecord            | Boolean       | true            |
+
+The **Customer** fields holds information that is specific to the customer. This is information that will be used to help process disposition requests. 
+
+The **Customer_AvailableHoldCodes** field contains all the hold codes that could possibly be used as a hold code status in the request. The intention of this field to hold all the hold codes that are available for use. For example, sending OH means that you can only change the hold code status to OH.
+
+The **Customer_ModifyLotsWithHoldCodes** field is a way to specifiy which lots can be modified based on the hold code status of each line item. For example, if any of the line items in the requested lot have a hold code other than OK, then this lot becomes unmodifiable else if it has all line items with the status OK then it will successfully modify the lots.   
+
+The **Customer_ReturnRecord** field if set true will return record values. 
+
 ### GET Only Fields
 
 These are fields that reflect how the order has been processed in the Rinchem system and cannot be sent/modified by integrators.
 
-| Inbound | Outbound | Field Name              | Format    | Example                                                      |
-| ------- | -------- | ----------------------- | --------- | ------------------------------------------------------------ |
-| +       | +        | Record_Status           | Picklist  | SUBMITTED                                                    |
-| +       | +        | Record_Message          | Text(255) | Your record has passed initial validation and has been submitted to our warehouse management system. |
-| + w     | + w      | Record_CreatedDate      | Date/Time | 2018-07-25T22:58:03.000Z                                     |
-| + w     | + w      | Record_LastModifiedDate | Date/Time | 2018-07-25T23:23:14.000Z                                     |
+| Inbound | Outbound | Disposition | Field Name              | Format    | Example                                                      |
+| ------- | -------- | ----------- | ----------------------- | --------- | ------------------------------------------------------------ |
+| +       | +        | x           | Record_Status           | Picklist  | SUBMITTED                                                    |
+| +       | +        | x           | Record_Message          | Text(255) | Your record has passed initial validation and has been submitted to our warehouse management system. |
+| + w     | + w      | x           | Record_CreatedDate      | Date/Time | 2018-07-25T22:58:03.000Z                                     |
+| + w     | + w      | x           | Record_LastModifiedDate | Date/Time | 2018-07-25T23:23:14.000Z                                     |
 
 The **Record_Status** and **Record_Message** fields describe the status of the request within Rinchem's system. Please see the ***REF_PicklistValues.md*** file for all available statuses and their meaning.
 
@@ -204,26 +220,26 @@ The **Record_Status** and **Record_Message** fields describe the status of the r
 
 ### Record Fields (line)
 
-| Inbound | Outbound | Field Name              | Format     | Example  |
-| ------- | -------- | ----------------------- | ---------- | -------- |
-| + w     | + w      | RecordLine_Number       | Integer(5) | 1        |
-| +       | +        | RecordLine_ExternalName | Text(255)  | EXAMPLE1 |
+| Inbound | Outbound | Disposition | Field Name              | Format     | Example  |
+| ------- | -------- | ----------- | ----------------------- | ---------- | -------- |
+| + w     | + w      | +           | RecordLine_Number       | Integer(5) | 1        |
+| +       | +        | +           | RecordLine_ExternalName | Text(255)  | EXAMPLE1 |
 
 The **RecordLine_Number** and **RecordLine_ExternalName** are fields that allow you to reference the line item in *PATCH* and *GET* calls. Each value must be unique to the order, meaning two lines can't both have a *Record_LineNumber* of '1'. If this occurs, the payload will be discarded and an error will be returned. *RecordLine_Number* should be used for integer values only! *RecordLine_ExternalName* may be any character string.
 
 ### General Fields (line)
 
-| Inbound | Outbound | Field Name          | Format      | Example |
-| ------- | -------- | ------------------- | ----------- | ------- |
-| * w     | * w      | Quantity            | Integer(12) | 6       |
-| * w     | * w      | LotNumber           | Text(20)    | 12345   |
-| +       | x        | SerialNumber        | Text(50)    | 54321   |
-| * w     | * w      | UnitOfMeasure       | Picklist    | BOTTLE  |
-| +       | +        | PurchaseOrderNumber | Text(10)    | PO1234  |
-| +       | + w      | AdditionalComments  | Text(50)    |         |
-| +       | +        | LineCustomerField1  | Text(255)   |         |
-| +       | +        | LineCustomerField2  | Text(255)   |         |
-| +       | +        | LineCustomerField3  | Text(255)   |         |
+| Inbound | Outbound | Disposition | Field Name          | Format      | Example |
+| ------- | -------- | ----------- | ------------------- | ----------- | ------- |
+| * w     | * w      | +           | Quantity            | Integer(12) | 6       |
+| * w     | * w      | * w         | LotNumber           | Text(20)    | 12345   |
+| +       | x        | +           | SerialNumber        | Text(50)    | 54321   |
+| * w     | * w      | +           | UnitOfMeasure       | Picklist    | BOTTLE  |
+| +       | +        | +           | PurchaseOrderNumber | Text(10)    | PO1234  |
+| +       | + w      | +           | AdditionalComments  | Text(50)    |         |
+| +       | +        | x           | LineCustomerField1  | Text(255)   |         |
+| +       | +        | x           | LineCustomerField2  | Text(255)   |         |
+| +       | +        | x           | LineCustomerField3  | Text(255)   |         |
 
 **LotNumber** tells us which lot we will be picking/receiving for this request. 
 
@@ -235,24 +251,24 @@ The **RecordLine_Number** and **RecordLine_ExternalName** are fields that allow 
 
 ### Product Number Fields (line)
 
-| Inbound | Outbound | Field Name                 | Format   | Example       |
-| ------- | -------- | -------------------------- | -------- | ------------- |
-| + w     | + w      | Product_RinchemPartNumber  | Text(25) | 12345_EXAMPLE |
-| +       | +        | Product_OwnerPartNumber    | Text(25) | OWN1234       |
-| +       | +        | Product_SupplierPartNumber | Text(25) | SUP1234       |
+| Inbound | Outbound | Disposition | Field Name                 | Format   | Example       |
+| ------- | -------- | ----------- | -------------------------- | -------- | ------------- |
+| + w     | + w      | x           | Product_RinchemPartNumber  | Text(25) | 12345_EXAMPLE |
+| +       | +        | +           | Product_OwnerPartNumber    | Text(25) | OWN1234       |
+| +       | +        | +           | Product_SupplierPartNumber | Text(25) | SUP1234       |
 
 The **ProductNumber** fields specify the part number of the product that is being shipped. Any, and at least one, of the three must be sent in. If any of the three are found, the other two will be populated based on our alias table. If none of them are found, an error case will be created and manual intervention will be required.
 
 ### Hold Code and Attribute Fields (line)
 
-| Inbound | Outbound | Field Name                 | Format   | Example            |
-| ------- | -------- | -------------------------- | -------- | ------------------ |
-| + w     | x w      | HoldCode                   | Picklist | VH                 |
-| +       | x        | HoldCode_Reason            | Text(25) | Needs verification |
-| + w     | x w      | Attributes_Destination     | Text(30) | D12                |
-| + w     | x w      | Attributes_Process         | Text(30) | 1272               |
-| + w     | x w      | Attributes_Other           | Text(30) | IO,PQ              |
-| + w     | x w      | Attributes_ComponentStatus | Text(30) | NT                 |
+| Inbound | Outbound | Disposition | Field Name                 | Format   | Example            |
+| ------- | -------- | ----------- | -------------------------- | -------- | ------------------ |
+| + w     | x w      | * w         | HoldCode                   | Picklist | VH                 |
+| +       | x        | +           | HoldCode_Reason            | Text(25) | Needs verification |
+| + w     | x w      | + w         | Attributes_Destination     | Text(30) | D12                |
+| + w     | x w      | + w         | Attributes_Process         | Text(30) | 1272               |
+| + w     | x w      | + w         | Attributes_Other           | Text(30) | IO,PQ              |
+| + w     | x w      | + w         | Attributes_ComponentStatus | Text(30) | NT                 |
 
 The **HoldCode** and **Attributes** fields are only available for **Inbound** requests. They let us know what state the material is in when we receive it in our warehouse.
 
