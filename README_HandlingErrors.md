@@ -39,7 +39,7 @@ This may happen in the case of text being sent to a number field or an invalid d
 
 ## Invalid Payloads - Pre Staging
 
-These errors occur when the payload is able to be de-serialized by Salesforce, however, there are fields with invalid data that can be caught with a preliminary check, prior to sending to the wms. The most common error of this type, is a missing required field. These responses will have the format of an object with fields *status*, and *message*. These errors will create an error case in the Chem-Star Portal. Errors of this type will require the full payload to be corrected and  and will be the responsibility of the sending party to handle and correct!**
+These errors occur when the payload is able to be de-serialized by Salesforce, however, there are fields with invalid data that can be caught with a preliminary check, prior to sending to the wms. The most common error of this type, is a missing required field. These responses will have the format of an object with fields *status*, and *message*. These errors will create an error case in the Chem-Star Portal. Errors of this type will require the full payload to be corrected and will be the responsibility of the sending party to handle and correct!**
 
 #### Missing Required Field
 
@@ -51,6 +51,18 @@ In this example, the required field **From_Warehouse_Code__c**, was omitted from
     "message": "Your request failed with the following error: Insert failed. First exception on row 0; first error: REQUIRED_FIELD_MISSING, Required fields are missing: [From_Warehouse_Code__c]: [From_Warehouse_Code__c]Class.OBO_Service_V1.handlePostNew: line 176, column 1\nClass.OBO_Service_V1.doPost: line 64, column 1"
 }
 ```
+#### Invalid Data
+
+This example is specific to the Disposition Integration. In this example, the requested part number was not found in Rinchem WMS System. 
+
+```
+{
+    "status": "GENERAL_ERROR"
+    "message": "Sorry, we could not submit your request. We were not able to find part number 008906011",
+}
+```
+
+You can find more details regarding error reseponses here. 
 
 ## Invalid Payloads - Post Staging
 
