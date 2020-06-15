@@ -1,19 +1,16 @@
 # EasyLink-API V2 - Error Responses
 
 #### Table Of Contents
+> [Disposition Error Responses](#disposition-error-responses)<br/>
+> [Inbound Error Responses](#inbound-error-responses)<br/>
+> [Outbound Error Responses](#outbound-error-responses)<br/>
 
-> [Disposition Error Responses](#disposition-error-responses)
-> [Inbound Error Responses](#inbound-error-responses)
-> [Outbound Error Responses](#outbound-error-responses)
+## Disposition Error Responses
 
-##Disposition Error Responses
+## Inbound Error Responses
 
-  
+&ast;*To be written*&ast;
 
-##Inbound Error Responses
+## Outbound Error Responses
 
-*To be written*
-
-##Outbound Error Responses
-
-*To be written*
+&ast;*To be written*&ast;
