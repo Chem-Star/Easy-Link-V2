@@ -62,7 +62,7 @@ This example is specific to the Disposition Integration. In this example, the re
 }
 ```
 
-You can find more details regarding error reseponses here. 
+You can find more details regarding error reseponses [here](REF_ErrorResponses.md). 
 
 ## Invalid Payloads - Post Staging
 
