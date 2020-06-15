@@ -15,6 +15,7 @@
 > > [REF_AllFields](#ref_allfieldsmd)<br/>
 > > [REF_PayloadExamples](#ref_payloadexamplesmd)<br/>
 > > [REF_PicklistValues](#ref_picklistvaluesmd)<br/>
+> > [REF_ErrorResponses](#ref_errorresponsesmd)<br/>
 
 ## Overview
 
@@ -82,3 +83,7 @@ This file is going to show you some examples with the the format that you need f
 ### [REF_PicklistValues.md](REF_PicklistValues.md)
 
 Some fields that you map to are going to require specific values. This means they are not freeform and you may have to use some sort of alias table to convert your values into one of our accepted values. This file is going to list out all values that we will accept for each of our 'Picklist' fields.
+
+### [REF_ErrorResponses.md](REF_ErrorResponses.md)
+
+You may get into some trouble understanding the error responses you may get back from sending requests. This file contains a compiled list of error responses with an explanation on why the error occured during your requests. 
