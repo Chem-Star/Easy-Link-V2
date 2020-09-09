@@ -263,14 +263,14 @@ The **ProductNumber** fields specify the part number of the product that is bein
 
 | Inbound | Outbound | Disposition | Field Name                 | Format   | Example            |
 | ------- | -------- | ----------- | -------------------------- | -------- | ------------------ |
-| + w     | x w      | * w         | HoldCode                   | Picklist | VH                 |
-| +       | x        | +           | HoldCode_Reason            | Text(25) | Needs verification |
-| + w     | x w      | + w         | Attributes_Destination     | Text(30) | D12                |
-| + w     | x w      | + w         | Attributes_Process         | Text(30) | 1272               |
-| + w     | x w      | + w         | Attributes_Other           | Text(30) | IO,PQ              |
-| + w     | x w      | + w         | Attributes_ComponentStatus | Text(30) | NT                 |
+| + w     | + w      | * w         | HoldCode                   | Picklist | VH                 |
+| +       | +        | +           | HoldCode_Reason            | Text(25) | Needs verification |
+| + w     | + w      | + w         | Attributes_Destination     | Text(30) | D12                |
+| + w     | + w      | + w         | Attributes_Process         | Text(30) | 1272               |
+| + w     | + w      | + w         | Attributes_Other           | Text(30) | IO,PQ              |
+| + w     | + w      | + w         | Attributes_ComponentStatus | Text(30) | NT                 |
 
-The **HoldCode** and **Attributes** fields are only available for **Inbound** requests. They let us know what state the material is in when we receive it in our warehouse.
+The **HoldCode** and **Attributes** fields let us know what state the material is in when it is received.
 
 The **HoldCode** field lets us know the hold code that is associated with the order. For example, sending VH, would let us know that the material is on vendor hold. The **HoldCode_Reason** field would then be used to let us know why. The **Attributes** fields on the other hand are allocations applied to the material. 
 
