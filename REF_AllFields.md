@@ -267,7 +267,7 @@ The **ProductNumber** fields specify the part number of the product that is bein
 | +       | +        | +           | HoldCode_Reason            | Text(25) | Needs verification |
 | + w     | + w      | + w         | Attributes_Destination     | Text(30) | D12                |
 | + w     | + w      | + w         | Attributes_Process         | Text(30) | 1272               |
-| + w     | + w      | + w         | Attributes_Other           | Text(30) | IO,PQ              |
+| + w     | + w      | + w         | Attributes_Other           | Text(30) | PQ                 |
 | + w     | + w      | + w         | Attributes_ComponentStatus | Text(30) | NT                 |
 | + w     | + w      | + w         | Attributes_OwnerStatus     | Text(30) | CO                 |
 
